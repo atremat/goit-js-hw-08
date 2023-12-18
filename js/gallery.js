@@ -97,19 +97,19 @@ galleryList.addEventListener('click', event => {
     return;
   }
 
-  const selectedImg = event.target.dataset.source;
+  const selectedImgSrc = event.target.dataset.source;
+  const selectedImgAlt = event.target.alt;
 
   const instance = basicLightbox.create(
     `
-  	    <img width="1400" height="900" src="${selectedImg}">
-      `,
+  	  <img src="${selectedImgSrc}" alt="${selectedImgAlt}">
+    `,
   );
   instance.show();
 
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
       instance.close();
-      console.log('Клавіша Escape натиснута');
     }
   });
 });

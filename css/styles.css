@@ -8,8 +8,7 @@ body {
   background-color: #ffffff;
 }
 
-ul,
-ol {
+ul {
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
@@ -22,13 +21,6 @@ a {
   cursor: pointer;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  width: 100%;
-}
-
 ul.gallery {
   padding: 24px 156px;
   width: 1440px;
@@ -39,9 +31,6 @@ ul.gallery {
   gap: 24px;
 }
 
-.gallery-item {
-}
-
 .gallery-image {
   width: 360px;
   height: 200px;
@@ -50,5 +39,10 @@ ul.gallery {
 }
 
 .gallery-image:hover {
-  transform: scale(1.044);
+  transform: scale(1.04);
+}
+
+.modal-img {
+  width: 1112px;
+  height: 640px;
 }
