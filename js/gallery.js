@@ -66,7 +66,7 @@ const images = [
 
 const galleryList = document.querySelector('ul.gallery');
 
-function createMarkup() {
+function createMarkup(images) {
   const markup = images.reduce((acc, { preview, original, description }) => {
     return (
       acc +
@@ -88,8 +88,17 @@ function createMarkup() {
   galleryList.insertAdjacentHTML('afterbegin', markup);
 }
 
-createMarkup();
+createMarkup(images);
 
 galleryList.addEventListener('click', event => {
   event.preventDefault();
+  console.log(event.target.nodeName);
+
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  // console.dir(event.target);
+  const selectedImg = event.target.dataset.source;
+  console.log(selectedImg);
 });
