@@ -92,13 +92,25 @@ createMarkup(images);
 
 galleryList.addEventListener('click', event => {
   event.preventDefault();
-  console.log(event.target.nodeName);
 
   if (event.target.nodeName !== 'IMG') {
     return;
   }
 
-  // console.dir(event.target);
   const selectedImg = event.target.dataset.source;
-  console.log(selectedImg);
+
+  // const instance = basicLightbox.create(`
+  //     <div class="modal">
+  //       <img width="1400" height="900" src="${selectedImg}" />
+  //     </div>
+  // `);
+  // instance.show();
+
+  basicLightbox
+    .create(
+      `
+  	    <img width="1400" height="900" src="${selectedImg}">
+      `,
+    )
+    .show();
 });
