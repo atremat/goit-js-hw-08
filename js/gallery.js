@@ -64,9 +64,13 @@ const images = [
   },
 ];
 
+//getting a link to unordered list, which will contain gallery
 const galleryList = document.querySelector('ul.gallery');
 
+//function createMarkup(images) receives an array of objects - images
+//and creates markup inside the galleryList
 function createMarkup(images) {
+  //creating markup
   const markup = images.reduce((acc, { preview, original, description }) => {
     return (
       acc +
@@ -85,31 +89,57 @@ function createMarkup(images) {
     );
   }, '');
 
+  //pushing markup into galleryList
   galleryList.insertAdjacentHTML('afterbegin', markup);
 }
 
+//creating markup of gallery
 createMarkup(images);
 
+//addEventListener - reaction on click on elements of gallery
 galleryList.addEventListener('click', event => {
+  //we do not want to download images by default, so using preventDefault
   event.preventDefault();
 
+  //checking if we clicked exactly on the image, if false - return
   if (event.target.nodeName !== 'IMG') {
     return;
   }
 
+  //getting source of original image
   const selectedImgSrc = event.target.dataset.source;
+  //getting alt attribute of the image
   const selectedImgAlt = event.target.alt;
 
+  //creating modal window with image using basicLightbox
   const instance = basicLightbox.create(
     `
-  	  <img src="${selectedImgSrc}" alt="${selectedImgAlt}">
-    `,
+      <img src="${selectedImgSrc}" alt="${selectedImgAlt}">
+  `,
+    //An object of options
+    {
+      //onShow executes every time the lightbox opens
+      onShow: instance => {
+        //adding EventListener to check Escape pressed
+        document.addEventListener('keydown', onEscKeyPress);
+      },
+      onClose: instance => {
+        //removing EventListener if lightbox is being closed
+        document.removeEventListener('keydown', onEscKeyPress);
+      },
+    },
   );
-  instance.show();
 
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
+  //checking if Escape is pressed
+  function onEscKeyPress(e) {
+    if (e.key === 'Escape') {
+      //if true, we're closing the instance
       instance.close();
+      //and removing EventListener
+      document.removeEventListener('keydown', onEscKeyPress);
     }
-  });
+  }
+
+  //we're opening the modal windwow with image
+  instance.show();
 });
